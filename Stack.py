@@ -51,16 +51,16 @@ class StackClass:
         self.items.append(item)
         return 0
 def balanced(inputstr):
-    stack = []
+    s = []
     for i in inputstr:
             if i == '(':
-                    stack += i
+                    s += i
             elif i == ')':
-                    if stack.pop() == '(':
+                    if s.pop() == '(':
                             continue
                     else:
                             return False
-    if len(stack) > 0:
+    if len(s) > 0:
             return False
     return True
    
