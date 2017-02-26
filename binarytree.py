@@ -134,6 +134,76 @@ class tree(object):
                 q.push(node.right)
         return maxdata
                 
+    def pathfinder(self,root):
+        paths = []
+        self.pathsAppender(root,[],paths)
+        for item in paths:
+            print(item)
+        return paths
+        
+    def pathsAppender(self,root,path,paths):
+        if not root:
+            return 0
+        
+        if  root.left is None and root.right is None:
+            ans = []
+            for item in path:
+                ans.append(item)
+            paths.append(ans + [root.data])
+            
+        if root.left:
+                path.append(root.data)
+                self.pathsAppender(root.left,path,paths)
+                path.pop()
+                
+        if root.right:
+                path.append(root.data)
+                self.pathsAppender(root.right,path,paths)
+                path.pop()
+                
+    def maxsumpath(self,root):
+         result = self.pathfinder(root)
+         lst = []
+         for element in result:
+             Sum = sum(element)
+             lst.append(Sum)
+             Sum = 0
+         print(max(lst))
+    
+    def Pathsumfinder(self,root,val,path):
+        answer = False
+        if root is None:
+            return
+        subsum = val - root.data
+        if subsum == 0 and root.right is None and root.left is None:
+            path.append(root.data)
+            print(path)
+            return True
+        if root.left:
+            path.append(root.data)
+            answer = answer or self.Pathsumfinder(root.left,subsum,path)
+            path.pop()
+        if root.right:
+           path.append(root.data)
+           answer = answer or self.Pathsumfinder(root.right,subsum,path)
+           path.pop()
+        return answer
+    def Lca(self,root,n1,n2,v1 = False,v2 = False):
+        if root is None:
+            return None
+        if root.data == n1:
+            v1 = True
+            return root
+        if root.data == n2:
+            v2 = True
+            return root
+        left_lca = self.Lca(root.left,n1,n2,v1,v2)
+        right_lca = self.Lca(root.right,n1,n2,v1,v2)
+        
+        if left_lca and right_lca:
+            return root.data
+        else :
+            return left_lca if left_lca is not None else right_lca
         
 def main():
     Tree = tree()
@@ -158,6 +228,14 @@ def main():
     print(Tree.sumofeachlevel(Tree.root))
     print("Maximum of binary tree")
     print(Tree.maxofBinary(Tree.root))
+    print("Path to leaf Nodde:")
+    print(Tree.pathfinder(Tree.root))
+    print("Maximum sum path")
+    print (Tree.maxsumpath(Tree.root))
+    print("Presence of sum 23")
+    print(Tree.Pathsumfinder(Tree.root,6,[]))
+    print("Lca of two numbers:")
+    print(Tree.Lca(Tree.root,4,6,False,False))
 main()
                 
             
