@@ -1,3 +1,7 @@
+"""Implementation of redblack tree
+@Author: Naveen Chaudhary"""
+#!/bin/python3
+
 class node(object):
     def __init__(self,data,parent = None,left = None,right = None,color = None):
         self.data = data

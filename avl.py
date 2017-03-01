@@ -1,3 +1,7 @@
+"""Implementation of AVL trees
+@Author: Naveen Chaudhary"""
+#!/bin/python3
+
 class node:
     def __init__(self,data,left=None,right=None,parent = None,balanceFactor = 0):
         self.data = data
